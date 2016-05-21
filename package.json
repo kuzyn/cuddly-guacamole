@@ -1,0 +1,42 @@
+{
+  "name": "dtlj-foodsessions",
+  "version": "0.0.1",
+  "description": "A DTLJ application for the Food Sessions project",
+  "author": "Daily Tous Les Jours <hello@dailytlj.com>",
+  "contributors": [
+    {
+      "name": "Samuel Cousin",
+      "email": "hello@samuelcousin.com"
+    }
+  ],
+  "engines": {
+    "node": "6.2.0"
+  },
+  "main": "bin/www",
+  "scripts": {
+    "test": "echo 'no tests yet :('",
+    "start": "node server.js",
+    "predeploy": "",
+    "postdeploy": "",
+    "preinstall": "",
+    "postinstall": ""
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.4.17",
+    "morgan": "^1.7.0",
+    "body-parser": "^1.15.1",
+    "mustache-express": "^1.2.2"
+  },
+  "devDependencies": {
+  "chai": "*",
+  "chai-http": "*",
+  "mocha": "*"
+},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kuzyn/silver-waffle"
+  },
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE.md"
+}
