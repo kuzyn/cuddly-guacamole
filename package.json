@@ -21,7 +21,7 @@
     "predeploy": "",
     "postdeploy": "",
     "preinstall": "",
-    "postinstall": "npm test"
+    "postinstall": ""
   },
   "pre-commit": [
     "lint"
