@@ -4,10 +4,7 @@
 
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
-var env = require('gulp-env');
 var bs = require('browser-sync').create();
-
-env(".env");
 
 // our browser-sync config + nodemon chain
 gulp.task('browser-sync', ['nodemon'], function() {
@@ -23,7 +20,7 @@ gulp.task('default', ['browser-sync'], function () {
 	gulp.watch('./views/**/*.handlebars', bs.reload);
 	gulp.watch('./public/**/*.js', bs.reload);
 	gulp.watch('./public/**/*.css', bs.reload);
-	gulp.watch(['./routes/**/*.js', './app.js', './bin/www', './bin/*.js'], ['bs-delay']);
+	gulp.watch(['./routes/**/*.js', './app.js', './bin/www'], ['bs-delay']);
 });
 
 // give nodemon time to restart before we reload the page
@@ -36,9 +33,6 @@ gulp.task('bs-delay', function () {
 // our gulp-nodemon task
 gulp.task('nodemon', function (cb) {
 	var started = false;
-	env({
-		file:'.env'
-	});
 	return nodemon({
 		script: './bin/www',
 		ext: 'js',
