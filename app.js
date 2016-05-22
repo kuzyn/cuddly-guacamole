@@ -1,6 +1,6 @@
 var debug = require('debug')('foodsessions:app');
 var env = require('node-env-file');
-var logger = require('morgan');
+var morgan = require('morgan');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var path = require('path');
@@ -30,24 +30,24 @@ var client = require('./routes/client'); // Client page route
 
 // Middlewares
 app.use(favicon(path.join(__dirname + '/public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('dev')); // use 'combined' for complete headers
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
 
 // View engine setup
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({defaultLayout: 'default'}));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 // Public folder setup
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Attach views
+// Attach app views (aka pages)
 app.use('/', client); // Client page view
 
-// Attach routes
+// Attach API routes
 // TODO
 
 // Catch 404 and next() to error handler

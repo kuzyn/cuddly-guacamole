@@ -9,7 +9,7 @@ var router = express.Router();
 // where we send our GET to localhost:port/
 router.get('/', function(req, res) {
   debug('GET');
-  res.render('home');
+  res.render('client');
 });
 
 module.exports = router;
