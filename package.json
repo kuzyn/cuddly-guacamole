@@ -21,7 +21,7 @@
     "predeploy": "",
     "postdeploy": "",
     "preinstall": "",
-    "postinstall": ""
+    "postinstall": "npm test"
   },
   "pre-commit": [
     "lint"
@@ -36,7 +36,8 @@
     "mongoose": "^4.4.17",
     "morgan": "^1.7.0",
     "node-env-file": "^0.1.8",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "debug": "^2.2.0"
   },
   "devDependencies": {
     "browser-sync": "^2.12.8",

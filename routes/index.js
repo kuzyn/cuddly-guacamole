@@ -1,4 +1,4 @@
-var debug = require('debug')('foodsessions:routes/client');
+var debug = require('debug')('foodsessions:routes/index');
 var express = require('express');
 var router = express.Router();
 
