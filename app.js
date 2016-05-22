@@ -9,7 +9,9 @@ var favicon = require('serve-favicon');
 var app = express();
 
 // load env variables
-env('.env');
+if (process.env.NODE_ENV !== 'production') {
+  env('.env');
+}
 
 //////////////////
 // App Settings //
