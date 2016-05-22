@@ -9,7 +9,7 @@ entries and survey the app stats.
 
 [Daily Tous Les Jours](http://www.dailytouslesjours.com/)
 
-![alt tag](https://s3.amazonaws.com/jobscore-assets/careers_site_header/header_dSkPDOUUqr467CiGak6IKg@2x.png)
+![alt tag](https://s3.amazonaws.com/jobscore-assets/careers_site_header/header_dSkPDOUUqr467CiGak6IKg.png)
 
 
 #Application design goals
@@ -47,8 +47,9 @@ git clone https://github.com/kuzyn/cuddly-guacamole.git
 git checkout develop
 ```
 
-Second, use Gulp to run the app locally and debug:
+Second, install the package and use Gulp to run the app locally:
 ```
+npm install
 gulp
 ```
 
