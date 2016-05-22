@@ -4,8 +4,8 @@ var debug = require('debug')('foodsessions:www');
 var http = require('http');
 var app = require('../app');
 
-// Get port from environment and store it or default to 3000
-var port = normalizePort(process.env.PORT || '3000');
+// Get port from .env file
+var port = normalizePort(process.env.PORT);
 app.set('port', port);
 
 // Create HTTP server
@@ -42,6 +42,7 @@ function normalizePort(val) {
 
 // Callback for our HTTP server "error" event
 function onError(error) {
+
   if (error.syscall !== 'listen') {
     process.stderr(error);
     throw error;
@@ -69,16 +70,12 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   if (process.pid) {
-    process.stdout
-    .write('\n' +
-           '  ######FOOD########'+ '\n' +
-           '  ######SESSIONS####'+ '\n' +
-           '  PID: ' + process.pid + '\n' +
+    process.stdout.write('\n' +
+           '######FOOD########'+ '\n' +
+           '######SESSIONS####'+ '\n' +
+           'PID: ' + process.pid + '\n' +
            '\n'
           );
-    if (process.env['BG_MODE']) {
-      process.stdout.write('  Press ENTER to go back to the prompt\n');
-    }
   }
   if (process.env['NODE_ENV'] === 'development-gulp') {
     debug('Listening on ' + bind + ' and proxying browser-sync on 4000');

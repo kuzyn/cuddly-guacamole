@@ -1,18 +1,22 @@
 var debug = require('debug')('foodsessions:app');
+var env = require('node-env-file');
 var logger = require('morgan');
 var express = require('express');
-var mustacheExpress = require('mustache-express');
+var exphbs = require('express-handlebars');
 var path = require('path');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var app = express();
 
+// load env variables
+env('.env');
 
 //////////////////
 // App Settings //
 //////////////////
 
-var config = {};
+var config = process.env;
+
 debug('Up!' + config);
 
 ///////////////////
@@ -31,8 +35,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // View engine setup
-app.engine('mustache', mustacheExpress());
-app.set('view engine', 'mustache');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 // Public folder setup
