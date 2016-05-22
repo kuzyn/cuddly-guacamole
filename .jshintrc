@@ -1,4 +1,8 @@
 {
+	// Our jshint configuration file
+	// For all possible options see jshint.com/docs/options/
+
+	// Enforcing
 	"curly": 			true,
 	"eqeqeq": 		true,
 	"immed": 			true,
@@ -10,10 +14,24 @@
 	"maxerr":			20,
 	"nonew":			true,
 
+	// Relaxing
 	"eqnull": 		true,
 	"sub":				true,
 
+	// Environments
 	"node": 			true,
 	"jquery":			true,
-	"browser":		true
+	"browser":		true,
+
+	// Custom
+	"globals"   : {
+	 // Mocha
+	 "should"			:	false,
+	 "describe"   : false,
+	 "it"         : false,
+	 "before"     : false,
+	 "beforeEach" : false,
+	 "after"      : false,
+	 "afterEach"  : false
+ }
 }

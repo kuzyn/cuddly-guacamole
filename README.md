@@ -28,6 +28,7 @@ node    ^6.2.0
 npm     ^3.9.0
 gulp    ^3.9.0
 jshint  ^2.9.2
+mocha   ^2.4.5
 ```
 
 You will also need a local ```.env``` file placed at the root of the project folder with the following variables set:
