@@ -26,6 +26,7 @@ debug('Up!' + config);
 ///////////////////
 
 // Routes
+var index = require('./routes/index'); // Index page route
 var client = require('./routes/client'); // Client page route
 
 // Middlewares
@@ -45,7 +46,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Attach app views (aka pages)
-app.use('/', client); // Client page view
+app.use('/', index); // Client page view
+app.use('/client', client); // Client page view
 
 // Attach API routes
 // TODO
