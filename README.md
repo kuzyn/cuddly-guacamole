@@ -41,7 +41,7 @@ DEBUG='foodsessions:*'
 
 
 #Development
-First, clone the baca964project on your workstation and switch to the ```develop``` branch:
+First, clone the project on your workstation and switch to the ```develop``` branch:
 ```
 git clone https://github.com/kuzyn/cuddly-guacamole.git
 git checkout develop
