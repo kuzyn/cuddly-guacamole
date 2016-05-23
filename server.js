@@ -26,28 +26,33 @@ debug('Up!' + config);
 ///////////////////
 
 // Routes
-var index = require('./routes/index'); // Index page route
-var client = require('./routes/client'); // Client page route
+// var admin = require('./app/docs/admin_controller'); // Docs page route
+var client = require('./app/client/client_controller'); // Client page route
+var docs = require('./app/docs/docs_controller'); // Docs page route
 
 // Middlewares
-server.use(favicon(path.join(__dirname + '/public', 'favicon.ico')));
+server.use(favicon(path.join(__dirname + '/app/_public', 'favicon.ico')));
 server.use(morgan('dev')); // use 'combined' for complete headers
-server.use(bodyParser.urlencoded({
-  extended: true
-}));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-// View engine setup
-server.engine('handlebars', exphbs({defaultLayout: 'default'}));
-server.set('view engine', 'handlebars');
-server.set('views', path.join(__dirname, 'views'));
-
 // Public folder setup
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname + '/app/', '_public')));
 
-// Attach server views (aka pages)
-server.use('/', index); // Client page view
-server.use('/client', client); // Client page view
+// View engine setup
+server.engine('.hbs', exphbs({
+  defaultLayout: 'default',
+  layoutsDir: path.join(__dirname + '/app/_views/layouts/'),
+  partialsDir: path.join(__dirname + '/app/_views/partials/'),
+  extname: '.hbs'
+}));
+server.set('view engine', '.hbs');
+server.set('views', path.join(__dirname + '/app/', '_views'));
+
+// Attach views (aka pages)
+server.use('/', client); // Client page
+server.use('/docs', docs); // Docs page
+// server.use('/admin', admin); // Admin page
 
 // Attach API routes
 // TODO

@@ -5,7 +5,7 @@ var should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Index', function() {
+describe('Client', function() {
   it('should return 200', function(done) {
     chai.request(server)
       .get('/')
@@ -16,10 +16,10 @@ describe('Index', function() {
   });
 });
 
-describe('Client', function() {
+describe('Docs', function() {
   it('should return 200', function(done) {
     chai.request(server)
-      .get('/client')
+      .get('/docs')
       .end(function(err, res){
         res.should.have.status(200);
         done();

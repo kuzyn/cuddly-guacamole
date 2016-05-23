@@ -15,7 +15,7 @@
   },
   "main": "bin/www",
   "scripts": {
-    "lint": "./node_modules/.bin/jshint --verbose package.json server.js bin/www routes/*.js",
+    "lint": "./node_modules/.bin/jshint --verbose package.json server.js bin/www app/**/*.js",
     "test": "npm run lint && ./node_modules/.bin/mocha tests/**/*.js",
     "start": "node bin/www",
     "predeploy": "",
