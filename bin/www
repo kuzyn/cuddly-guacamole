@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+var debug = require('debug')('foodsessions:www');
+var http = require('http');
+var app = require('../app');
+
+// Get port from .env file
+var port = normalizePort(process.env.PORT);
+app.set('port', port);
+
+// Create HTTP server
+var server = http.createServer(app);
+
+// Listen on provided port, on all network interfaces
+server.listen(port);
+
+// Event handlers
+server.on('error', onError);
+server.on('listening', onListening);
+
+// Catch exeptions & keep our thread going
+process.on('uncaughtException', function (err) {
+  debug('Caught exception: ' + err);
+});
+
+//Normalize a port into a number, string, or false
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+// Callback for our HTTP server "error" event
+function onError(error) {
+
+  if (error.syscall !== 'listen') {
+    process.stderr(error);
+    throw error;
+  }
+
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  // Handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+    process.stdout.write(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+    process.stdout.write(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+// Callback for our HTTP server "listening" event
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  if (process.pid) {
+    process.stdout.write('\n' +
+           '######FOOD########'+ '\n' +
+           '######SESSIONS####'+ '\n' +
+           'PID: ' + process.pid + '\n' +
+           '\n'
+          );
+  }
+  if (process.env['NODE_ENV'] === 'development-gulp') {
+    debug('Listening on ' + bind + ' and proxying browser-sync on 4000');
+  } else {
+    debug('Listening on ' + bind);
+  }
+}
