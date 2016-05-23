@@ -1,6 +1,6 @@
 {
   "name": "dtlj-foodsessions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A DTLJ application for the Food Sessions project",
   "author": "Daily Tous Les Jours <hello@dailytlj.com>",
   "contributors": [
@@ -16,7 +16,7 @@
   "main": "bin/www",
   "scripts": {
     "lint": "./node_modules/.bin/jshint --verbose package.json app.js bin/www routes/*.js",
-    "test": "npm run lint && ./node_modules/.bin/mocha",
+    "test": "npm run lint && ./node_modules/.bin/mocha tests/**/*.js",
     "start": "node bin/www",
     "predeploy": "",
     "postdeploy": "",
