@@ -20,7 +20,7 @@ gulp.task('default', ['browser-sync'], function () {
 	gulp.watch('./views/**/*.handlebars', bs.reload);
 	gulp.watch('./public/**/*.js', bs.reload);
 	gulp.watch('./public/**/*.css', bs.reload);
-	gulp.watch(['./routes/**/*.js', './app.js', './bin/www'], ['bs-delay']);
+	gulp.watch(['./routes/**/*.js', './server.js', './bin/www'], ['bs-delay']);
 });
 
 // give nodemon time to restart before we reload the page

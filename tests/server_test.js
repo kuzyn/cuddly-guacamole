@@ -1,15 +1,9 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../app.js');
+var server = require('../server.js');
 var should = chai.should();
 
 chai.use(chaiHttp);
-
-///////////
-// Tests //
-///////////
-
-// Tests will not be commented as they are already quite readable due to http://chaijs.com/api/bdd/
 
 describe('Index', function() {
   it('should return 200', function(done) {

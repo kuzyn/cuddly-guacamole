@@ -2,26 +2,34 @@
 
 var debug = require('debug')('foodsessions:www');
 var http = require('http');
-var app = require('../app');
+var server = require('../server');
 
 // Get port from .env file
 var port = normalizePort(process.env.PORT);
-app.set('port', port);
+server.set('port', port);
 
-// Create HTTP server
-var server = http.createServer(app);
+// Create HTTP serverInstance
+var serverInstance = http.createServer(server);
 
 // Listen on provided port, on all network interfaces
-server.listen(port);
+serverInstance.listen(port);
 
-// Event handlers
-server.on('error', onError);
-server.on('listening', onListening);
+
+//*********
+// Handlers
+
+// Error and success handlers
+serverInstance.on('error', onError);
+serverInstance.on('listening', onListening);
 
 // Catch exeptions & keep our thread going
 process.on('uncaughtException', function (err) {
   debug('Caught exception: ' + err);
 });
+
+
+//*******
+//Helpers
 
 //Normalize a port into a number, string, or false
 function normalizePort(val) {
@@ -40,15 +48,16 @@ function normalizePort(val) {
   return false;
 }
 
-// Callback for our HTTP server "error" event
+// Callback for our HTTP serverInstance "error" event
 function onError(error) {
+  var bind;
 
   if (error.syscall !== 'listen') {
     process.stderr(error);
     throw error;
+  } else {
+    bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
   }
-
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // Handle specific listen errors with friendly messages
   switch (error.code) {
@@ -65,9 +74,9 @@ function onError(error) {
   }
 }
 
-// Callback for our HTTP server "listening" event
+// Callback for our HTTP serverInstance "listening" event
 function onListening() {
-  var addr = server.address();
+  var addr = serverInstance.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   if (process.pid) {
     process.stdout.write('\n' +
