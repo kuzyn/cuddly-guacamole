@@ -9,7 +9,7 @@ entries and survey the app stats.
 
 [Daily Tous Les Jours](http://www.dailytouslesjours.com/)
 
-![alt tag](https://s3.amazonaws.com/jobscore-assets/careers_site_header/header_dSkPDOUUqr467CiGak6IKg.png)
+![alt tag](./public/dtlj-logo.png)
 
 
 #Application design goals
@@ -41,7 +41,7 @@ DEBUG='foodsessions:*'
 
 
 #Development
-First, clone the project on your workstation and switch to the ```develop``` branch:
+First, clone the baca964project on your workstation and switch to the ```develop``` branch:
 ```
 git clone https://github.com/kuzyn/cuddly-guacamole.git
 git checkout develop
@@ -66,6 +66,11 @@ Please make sure to commit all changes to the **develop** branch. Ideally, the c
 * **test**: Adding missing tests  
 * **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation  
 
+
+#Deployment
+The ```develop``` branch is hooked to be automatically built on Heroku when it is pushed. The live development app sits at *https://cuddly-guacamole.herokuapp.com/*
+
+###TODO:MORE DETAILS
 
 #Tests
 
