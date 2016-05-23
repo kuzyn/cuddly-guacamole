@@ -1,4 +1,3 @@
-var debug = require('debug')('foodsessions:app');
 var env = require('node-env-file');
 var morgan = require('morgan');
 var express = require('express');
@@ -6,40 +5,28 @@ var exphbs = require('express-handlebars');
 var path = require('path');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
+// var debug = require('debug')('foodsessions:app');
 var server = express();
 
-// load env variables
+// load local env variables if we are not in production
 if (process.env.NODE_ENV !== 'production') {
   env('.env');
 }
-
-//////////////////
-// App Settings //
-//////////////////
-
-var config = process.env;
-
-debug('Up!' + config);
 
 ///////////////////
 // Express setup //
 ///////////////////
 
-// Routes
-// var admin = require('./app/docs/admin_controller'); // Docs page route
-var client = require('./app/client/client_controller'); // Client page route
-var docs = require('./app/docs/docs_controller'); // Docs page route
+// Point to our public folder
+server.use(express.static(path.join(__dirname + '/app/', '_public')));
 
-// Middlewares
+// Our middlewares
 server.use(favicon(path.join(__dirname + '/app/_public', 'favicon.ico')));
-server.use(morgan('dev')); // use 'combined' for complete headers
+server.use(morgan('dev')); // use 'combined' for verbose headers
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-// Public folder setup
-server.use(express.static(path.join(__dirname + '/app/', '_public')));
-
-// View engine setup
+// Configure our view engine
 server.engine('.hbs', exphbs({
   defaultLayout: 'default',
   layoutsDir: path.join(__dirname + '/app/_views/layouts/'),
@@ -49,13 +36,22 @@ server.engine('.hbs', exphbs({
 server.set('view engine', '.hbs');
 server.set('views', path.join(__dirname + '/app/', '_views'));
 
-// Attach views (aka pages)
+// Define our controllers
+// var admin = require('./app/admin/admin_controller'); // Docs page route
+var client = require('./app/client/client_controller'); // Client page route
+var docs = require('./app/docs/docs_controller'); // Docs page route
+
+// Attach our endpoints to our controllers
+// server.use('/admin', admin); // Admin page
 server.use('/', client); // Client page
 server.use('/docs', docs); // Docs page
-// server.use('/admin', admin); // Admin page
 
 // Attach API routes
 // TODO
+
+////////////////////
+// Error handling //
+////////////////////
 
 // Catch 404 and next() to error handler
 server.use(function(req, res, next) {
@@ -67,12 +63,10 @@ server.use(function(req, res, next) {
 // Error handler development (will print stacktrace)
 server.use(function(err, req, res) {
   res.status(err.status || 500);
-
   res.render('error', {
     message: err.message,
     error: err
   });
-
 });
 
 module.exports = server;

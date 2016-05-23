@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var debug = require('debug')('foodsessions:www');
 var http = require('http');
 var server = require('../server');
 
@@ -15,8 +14,9 @@ var serverInstance = http.createServer(server);
 serverInstance.listen(port);
 
 
-//*********
-// Handlers
+//////////////
+// Handlers //
+//////////////
 
 // Error and success handlers
 serverInstance.on('error', onError);
@@ -24,12 +24,13 @@ serverInstance.on('listening', onListening);
 
 // Catch exeptions & keep our thread going
 process.on('uncaughtException', function (err) {
-  debug('Caught exception: ' + err);
+  process.stdout.write('Caught exception: ' + err);
 });
 
 
-//*******
-//Helpers
+/////////////
+// Helpers //
+/////////////
 
 //Normalize a port into a number, string, or false
 function normalizePort(val) {
@@ -52,6 +53,7 @@ function normalizePort(val) {
 function onError(error) {
   var bind;
 
+  // throw an error if we are not ready to listen
   if (error.syscall !== 'listen') {
     process.stderr(error);
     throw error;
@@ -85,10 +87,6 @@ function onListening() {
            'PID: ' + process.pid + '\n' +
            '\n'
           );
-  }
-  if (process.env['NODE_ENV'] === 'development-gulp') {
-    debug('Listening on ' + bind + ' and proxying browser-sync on 4000');
-  } else {
-    debug('Listening on ' + bind);
+    process.stdout.write('Listening on ' + bind + ', press ctrl+c to exit' + '\n');
   }
 }
