@@ -9,7 +9,7 @@ entries and survey the app stats.
 
 [Daily Tous Les Jours](http://www.dailytouslesjours.com/)
 
-![alt tag](./public/dtlj-logo.png)
+![alt tag](./app/_public/dtlj-logo.png)
 
 
 #Application design goals
