@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 database.connect(process.env.MONGODB_URI, function(err) {
   if (err) {
     process.stdout.write('Unable to connect to database' + '\n');
-    process.exit(1);
+    throw err;
   } else {
     process.stdout.write('Connected to database' + '\n');
   }
