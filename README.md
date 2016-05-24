@@ -35,7 +35,7 @@ You will also need a local ```.env``` file placed at the root of the project fol
 ```
 PORT=3000
 NODE_ENV='development'
-DB_URL='your-mongodb-uri'
+MONGODB_URI='your-mongodb-uri'
 DEBUG='foodsessions:*'
 ```
 
