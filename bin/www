@@ -24,7 +24,7 @@ serverInstance.on('listening', onListening);
 
 // Catch exeptions & keep our thread going
 process.on('uncaughtException', function (err) {
-  process.stdout.write('Caught exception: ' + err);
+  process.stdout.write('Caught exception: ' + err + '\n');
 });
 
 
@@ -71,6 +71,10 @@ function onError(error) {
     process.stdout.write(bind + ' is already in use');
       process.exit(1);
       break;
+    // case 'ELIFECYCLE':
+    // process.stdout.write('There is a problem when spawning the /bin/www script' + bind);
+    //   process.exit(1);
+    //   break;
     default:
       throw error;
   }
