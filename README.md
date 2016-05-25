@@ -60,9 +60,7 @@ Once `mongodb` is properly installed, you will need to create a directory that w
 mongod --dbpath /absolute/path/to/your/db/folder --smallfiles
 ```
 
-This will create a `mongod` server that will be available as long as you leave this terminal open.
-
-Last thing before you are good to go is to create a database. You will only need to do this once.
+This will create a `mongod` server that will be available as long as you leave this terminal open. The last thing you need before you are good to go is to create a database. You will only need to do this once.
 
 In a second terminal window:
 
@@ -122,12 +120,10 @@ You will also notice that some git hooks are set-up to run these tasks in pre-co
 The branches are setup to be automatically deployed on Heroku when they are pushed to Github.
 
 ````develop```
-*https://cuddly-guacamole.herokuapp.com/*
+[https://cuddly-guacamole.herokuapp.com/](https://cuddly-guacamole.herokuapp.com/)
 
-```master
-````
-
-_???_
+```master````
+_t.b.c._
 
 # License
 
