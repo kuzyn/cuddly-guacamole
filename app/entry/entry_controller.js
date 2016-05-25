@@ -8,8 +8,12 @@ var router = express.Router();
 
 // get all
 router.get('/', function(req, res) {
-  Entry.getAll();
-  res.sendStatus(200);
+  Entry.getAll(function(err, result) {
+    if (err) {
+      res.sendStatus(503);
+    }
+    res.json(result);
+  });
 });
 
 // get one
@@ -22,16 +26,17 @@ router.post('/', function(req, res) {
 
   var payload = {
     message: req.body.message,
-    user: "testuser"
+    user: "testuser",
+    timestamp: Date.now()
   };
 
-  Entry.post(payload, function(err) {
+  Entry.post(payload, function(err, result) {
     if (err) {
       process.stdout.write("error in saving" + '\n');
       res.sendStatus(503);
     }
     process.stdout.write("Success in saving" + '\n');
-    res.sendStatus(200);
+    res.json(result);
   });
 });
 

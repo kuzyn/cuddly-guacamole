@@ -16,21 +16,22 @@ var ThisSchema = new Schema({
 var ThisModel = db.get().model('Entry', ThisSchema);
 
 module.exports = {
-    getAll: function() {
+    // refactor below, seems too complicated
+    getAll: function(callback) {
         ThisModel.find({}, function(err, entries) {
           if (err) {
-              throw err;
+              return callback(err, null);
           }
-          console.log(entries);
+          return callback(null, entries);
         });
     },
     post: function(payload, callback) {
         var m = new ThisModel(payload);
-         m.save(function(err) {
+         m.save(function(err, result) {
             if (err) {
-                return callback(err);
+                return callback(err, null);
             }
-            return callback();
+            return callback(null, result);
         });
     }
 };
