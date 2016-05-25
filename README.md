@@ -119,10 +119,10 @@ You will also notice that some git hooks are set-up to run these tasks in pre-co
 
 The branches are setup to be automatically deployed on Heroku when they are pushed to Github.
 
-````develop```
+```develop```
 [https://cuddly-guacamole.herokuapp.com/](https://cuddly-guacamole.herokuapp.com/)
 
-```master````
+```master```
 _t.b.c._
 
 # License
