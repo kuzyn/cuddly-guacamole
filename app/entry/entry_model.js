@@ -6,11 +6,12 @@ var ObjectId = Schema.ObjectId;
 var ThisSchema = new Schema({
     id : ObjectId,
     user: String,
-    message: String,
-    timestamp: {
-      type: Date,
-      default: Date.now()
-    }
+    category: String,
+    message: {
+        type: String,
+        default: ""
+    },
+    timestamp: Date
 });
 
 var ThisModel = db.get().model('Entry', ThisSchema);
@@ -27,13 +28,14 @@ module.exports = {
             }
         });
     },
-    post: function(payload, callback) {
-        var m = new ThisModel(payload);
-         m.save(function(err, result) {
-            if (err) {
-                return callback(err, null);
-            }
-            return callback(null, result);
-        });
+    post:
+    function(payload) {
+        var model;
+        var offset = payload.timestamp.getTimezoneOffset(); //todo: remember to bind to location timezone
+
+        payload.timestamp = payload.timestamp.getTime() - offset * 60000;
+        model = new ThisModel(payload);
+
+        return model.save();
     }
 };

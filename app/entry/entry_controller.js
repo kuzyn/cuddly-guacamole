@@ -18,11 +18,11 @@ router.get('/', function(req, res) {
 
 // get n latests
 router.get('/:limit', function(req, res) {
-  Entry.get(parseInt(req.params.limit)).then(function(entry){
-    if (!entry) {
-      res.sendStatus(503);
+  Entry.get(parseInt(req.params.limit)).then(function(entries){
+    if (!entries) {
+      res.sendStatus(400);
     }
-    res.json(entry);
+    res.json(entries);
   });
 });
 
@@ -31,17 +31,16 @@ router.post('/', function(req, res) {
 
   var payload = {
     message: req.body.message,
-    user: "testuser",
-    timestamp: Date.now()
+    category: "foo",
+    user: "bar",
+    timestamp: new Date()
   };
 
-  Entry.post(payload, function(err, result) {
-    if (err) {
-      process.stdout.write("error in saving" + '\n');
+  Entry.post(payload).then(function(entry) {
+    if (!entry) {
       res.sendStatus(503);
     }
-    process.stdout.write("Success in saving" + '\n');
-    res.json(result);
+    res.json(entry);
   });
 });
 
