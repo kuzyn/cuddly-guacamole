@@ -18,8 +18,8 @@ gulp.task('browser-sync', ['nodemon'], function() {
 // the real stuff
 gulp.task('default', ['browser-sync'], function() {
     gulp.watch('./app/_views/**/*.hbs', bs.reload);
-    gulp.watch('./app/public/**/*.js', bs.reload);
-    gulp.watch('./app/public/**/*.css', bs.reload);
+    gulp.watch('./app/_public/**/*.js', bs.reload);
+    gulp.watch('./app/_public/**/*.css', bs.reload);
     gulp.watch(['./app/**/*.js', './server.js', './bin/www'], ['bs-delay']);
 });
 

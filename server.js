@@ -37,6 +37,7 @@ database.connect(process.env.MONGODB_URI, function(err) {
 //   }
 // });
 
+
 ///////////////////
 // Express setup //
 ///////////////////
@@ -47,9 +48,8 @@ server.use(express.static(path.join(__dirname + '/app/', '_public')));
 // Our middlewares
 server.use(favicon(path.join(__dirname + '/app/_public', 'favicon.ico')));
 server.use(morgan('dev')); // use 'combined' for verbose headers
-server.use(bodyParser.urlencoded({
-    extended: true
-}));
+
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 // Configure our view engine
@@ -63,7 +63,7 @@ server.set('view engine', '.hbs');
 server.set('views', path.join(__dirname + '/app/', '_views'));
 
 // Page controllers
-// var admin = require('./app/admin/admin_controller'); // Docs page route
+// var admin = require('./app/admin/admin_controller'); // Admin page route
 var client = require('./app/client/client_controller'); // Client page route
 var docs = require('./app/docs/docs_controller'); // Docs page route
 

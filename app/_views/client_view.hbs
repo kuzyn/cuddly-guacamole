@@ -1,1 +1,14 @@
-<h1>landing page / client</h1>
+<div class="container">
+    <h1>food sessions</h1>
+    <div class="col col-md-6">
+        <form id="entry-submission" action="./entry/" method="post">
+            <div class="form-group">
+                <textarea class="form-control" row="3" name="entry-message" style="resize: vertical; height: 100px"></textarea>
+                <button class="btn btn-default" type="submit" name="send">send</button>
+            </div>
+        </form>
+    </div>
+    <div class=" col col-md-6">
+        <pre class="request-output">(results)</pre>
+    </div>
+</div>
