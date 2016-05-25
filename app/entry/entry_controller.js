@@ -6,19 +6,24 @@ var router = express.Router();
 // Client routing //
 ////////////////////
 
-// get all
+// get latest
 router.get('/', function(req, res) {
-  Entry.getAll(function(err, result) {
-    if (err) {
+  Entry.get(1).then(function(entry){
+    if (!entry) {
       res.sendStatus(503);
     }
-    res.json(result);
+    res.json(entry);
   });
 });
 
-// get one
-router.get('/:id', function(req, res) {
-  res.sendStatus(200);
+// get n latests
+router.get('/:limit', function(req, res) {
+  Entry.get(parseInt(req.params.limit)).then(function(entry){
+    if (!entry) {
+      res.sendStatus(503);
+    }
+    res.json(entry);
+  });
 });
 
 // create one

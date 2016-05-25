@@ -16,13 +16,15 @@ var ThisSchema = new Schema({
 var ThisModel = db.get().model('Entry', ThisSchema);
 
 module.exports = {
-    // refactor below, seems too complicated
-    getAll: function(callback) {
-        ThisModel.find({}, function(err, entries) {
-          if (err) {
-              return callback(err, null);
-          }
-          return callback(null, entries);
+    get: function(num) {
+        return ThisModel
+        .find({})
+        .sort({timestamp: -1})
+        .limit(num)
+        .exec(function(err) {
+            if (err) {
+                throw err;
+            }
         });
     },
     post: function(payload, callback) {
