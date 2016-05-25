@@ -28,14 +28,14 @@ database.connect(process.env.MONGODB_URI, function(err) {
   }
 });
 
-// Close connection to Mongo
-database.close(function(err) {
-  if (err) {
-    process.stdout.write('Problem when closing database' + '\n');
-  } else {
-    process.stdout.write('Closed database' + '\n');
-  }
-});
+// // Close connection to Mongo
+// database.close(function(err) {
+//   if (err) {
+//     process.stdout.write('Problem when closing database' + '\n');
+//   } else {
+//     process.stdout.write('Closed database' + '\n');
+//   }
+// });
 
 ///////////////////
 // Express setup //
@@ -60,10 +60,13 @@ server.engine('.hbs', exphbs({
 server.set('view engine', '.hbs');
 server.set('views', path.join(__dirname + '/app/', '_views'));
 
-// Define our controllers
+// Page controllers
 // var admin = require('./app/admin/admin_controller'); // Docs page route
 var client = require('./app/client/client_controller'); // Client page route
 var docs = require('./app/docs/docs_controller'); // Docs page route
+
+//API controllers
+var entry = require('./app/entry/entry_controller');
 
 // Attach our endpoints to our controllers
 // server.use('/admin', admin); // Admin page
@@ -71,7 +74,8 @@ server.use('/', client); // Client page
 server.use('/docs', docs); // Docs page
 
 // Attach API routes
-// TODO
+server.use('/entry', entry); // Docs page
+
 
 ////////////////////
 // Error handling //
