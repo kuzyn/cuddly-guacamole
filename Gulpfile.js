@@ -17,10 +17,10 @@ gulp.task('browser-sync', ['nodemon'], function() {
 
 // the real stuff
 gulp.task('default', ['browser-sync'], function() {
-    gulp.watch('./views/**/*.handlebars', bs.reload);
-    gulp.watch('./public/**/*.js', bs.reload);
-    gulp.watch('./public/**/*.css', bs.reload);
-    gulp.watch(['./routes/**/*.js', './server.js', './bin/www'], ['bs-delay']);
+    gulp.watch('./app/_views/**/*.hbs', bs.reload);
+    gulp.watch('./app/public/**/*.js', bs.reload);
+    gulp.watch('./app/public/**/*.css', bs.reload);
+    gulp.watch(['./app/**/*.js', './server.js', './bin/www'], ['bs-delay']);
 });
 
 // give nodemon time to restart before we reload the page
