@@ -9,26 +9,42 @@ entries and survey the app stats.
 
 [Daily Tous Les Jours](http://www.dailytouslesjours.com/)
 
-![alt tag](./app/_public/dtlj-logo.png)
+![alt tag](./app/_public/assets/dtlj-logo.png)
 
 
-#Application design goals
+
+#Application design
+
+The application's **design document** can be viewed *[here](./app/_public/assets/DTLJ_FoodSessions.pdf)*.  
+
+The application's **development board** can be viewed *[here](https://trello.com/b/cQA9OOXq/dtlj-fs)*.
+
+### Goals
 1. Maintainability (i.e. documentation, best practices, scalability and simplicity)
 2. RESTfulness (i.e. incorporate an API with CRUD endpoints)
 3. Reactivity (i.e. views update quickly)
 4. Responsivity (i.e. device agnostic)
 
 
-#Dependencies
-For project dependencies check ```package.json```
+#API
+Route | Type | Payload | Return | Description
+--- | --- | --- | --- | ---
+*/entry*       | **GET**      | n/a  | Object | Returns the most recent entry
+*/entry*       | **POST**     | {message: *String*, user: *String*} | Object | Save an entry and returns it
+*/entry/:limit*       | **GET**      | n/a  | Object | Returns the number of entries set in *:limit*
 
-As for development dependencies, you will need the following installed and properly configured on your local machine:
+
+
+#Development
+
+
+You will need the following installed and configured on your local machine (i.e. ```npm install -g```). These are the tested versions, other *might* work.
 ```
-node    ^6.2.0
-npm     ^3.9.0
-gulp    ^3.9.0
-jshint  ^2.9.2
-mocha   ^2.4.5
+node@^6.2.0
+npm@^3.9.0
+gulp@^3.9.0
+jshint@^2.9.2
+mocha@^2.4.5
 ```
 
 You will also need a local ```.env``` file placed at the root of the project folder with the following variables set:
@@ -40,22 +56,50 @@ DEBUG='foodsessions:*'
 ```
 
 
-#Development
+### Database
+
+I would also suggest to locally installing ```mongodb``` (>=3.0.12) by following [the instructions here](https://docs.mongodb.com/manual/installation/).
+
+Once ```mongodb``` is properly installed, you will need to create a directory that will act as a store and point ```mongod``` to it when you start it in your terminal:
+```
+mongod --dbpath /absolute/path/to/your/db/folder --smallfiles
+```
+This will create a ```mongod``` server that will be available as long as you leave this terminal open.
+
+Last thing before you are good to go is to create a database. You will only need to do this once.
+
+In a second terminal window:
+```
+mongo
+show dbs
+use yourdatabasename
+db.testmodel.insert({foo: "bar"})
+show dbs
+```
+
+By then you should have seen some activity in your ```mongod``` terminal.
+
+You can now use ```mongodb://localhost:27017/yourdatabasename``` as your ```MONGODB_URI```, just make sure to leave the ```mongod``` server running in the background when you develop.
+
+
+### Contributing
 First, clone the project on your workstation and switch to the ```develop``` branch:
 ```
 git clone https://github.com/kuzyn/cuddly-guacamole.git
 git checkout develop
 ```
 
-Second, install the package and use Gulp to run the app locally:
+Second, install the package and run the app locally:
 ```
 npm install
-gulp
+npm start
 ```
 
-All of your changes will update the app in your browser, making it that much easier to debug.
+If you want to enable automatic reloading, replace the ```npm start``` command by ```gulp```: all changes will update your browser, making it that much easier to test.
 
-Please make sure to commit all changes to the **develop** branch. Ideally, the commits should also be prefixed by a type:
+
+### Commiting
+Please make sure to commit all changes to the ```develop``` branch. Ideally, the commits should also be prefixed by a type:
 
 * **feat**: A new feature  
 * **fix**: A bug fix  
@@ -67,18 +111,23 @@ Please make sure to commit all changes to the **develop** branch. Ideally, the c
 * **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation  
 
 
-#Deployment
-The ```develop``` branch is hooked to be automatically built on Heroku when it is pushed. The live development app sits at *https://cuddly-guacamole.herokuapp.com/*
+### Tests
 
-###TODO:MORE DETAILS
+```mocha``` will run unit tests  
+```npm run lint``` will do code linting  
+```npm test``` will execute ```npm run lint``` then do ```mocha``` tests  
 
-#Tests
 
-The command ```npm run lint``` will execute JS linting and the command ```npm test``` will also lint, then move to other tests. The linting will also be run automatically on commits by through the ```pre-commit``` npm package.
+You will also notice that some git hooks are set-up to run these tasks in pre-commit and pre-push. If you're sure of what you're doing, you can bypass this  with the git argument ```--no-verify```.
 
-#API
-###TODO
+### Deployment
+The branches are setup to be automatically deployed on Heroku when they are pushed to Github.
 
+```develop```  
+*https://cuddly-guacamole.herokuapp.com/*
+
+```master```  
+*???*
 
 #License
 See the [LICENSE.md](LICENCE.md) file
