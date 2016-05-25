@@ -8,10 +8,10 @@ var router = express.Router();
 
 // where we send our GET to localhost:port/
 router.get('/', function(req, res) {
-  debug('GET');
-  res.render('client_view', {
-    clientPage: true
-  });
+    debug('GET');
+    res.render('client_view', {
+        clientPage: true
+    });
 });
 
 module.exports = router;

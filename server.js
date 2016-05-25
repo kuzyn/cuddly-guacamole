@@ -10,7 +10,7 @@ var server = express();
 
 // load local env variables if we are not in production
 if (process.env.NODE_ENV !== 'production') {
-  env('.env');
+    env('.env');
 }
 
 
@@ -20,12 +20,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Connect to Mongo
 database.connect(process.env.MONGODB_URI, function(err) {
-  if (err) {
-    process.stdout.write('Unable to connect to database' + '\n');
-    throw err;
-  } else {
-    process.stdout.write('Connected to database' + '\n');
-  }
+    if (err) {
+        process.stdout.write('Unable to connect to database' + '\n');
+        throw err;
+    } else {
+        process.stdout.write('Connected to database' + '\n');
+    }
 });
 
 // // Close connection to Mongo
@@ -47,15 +47,17 @@ server.use(express.static(path.join(__dirname + '/app/', '_public')));
 // Our middlewares
 server.use(favicon(path.join(__dirname + '/app/_public', 'favicon.ico')));
 server.use(morgan('dev')); // use 'combined' for verbose headers
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({
+    extended: true
+}));
 server.use(bodyParser.json());
 
 // Configure our view engine
 server.engine('.hbs', exphbs({
-  defaultLayout: 'default',
-  layoutsDir: path.join(__dirname + '/app/_views/layouts/'),
-  partialsDir: path.join(__dirname + '/app/_views/partials/'),
-  extname: '.hbs'
+    defaultLayout: 'default',
+    layoutsDir: path.join(__dirname + '/app/_views/layouts/'),
+    partialsDir: path.join(__dirname + '/app/_views/partials/'),
+    extname: '.hbs'
 }));
 server.set('view engine', '.hbs');
 server.set('views', path.join(__dirname + '/app/', '_views'));
@@ -83,19 +85,19 @@ server.use('/entry', entry); // Docs page
 
 // Catch 404 and next() to error handler
 server.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // Error handler development (will print stacktrace)
 server.use(function(err, req, res) {
-  res.status(err.status || 500);
-  process.stdout.write(err);
-  res.render('error', {
-    message: err.message,
-    error: err
-  });
+    res.status(err.status || 500);
+    process.stdout.write(err);
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
 });
 
 module.exports = server;

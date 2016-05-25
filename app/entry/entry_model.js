@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var entrySchema = new Schema({
-    id : ObjectId,
+    id: ObjectId,
     user: String,
     category: String,
     message: {
@@ -20,15 +20,17 @@ module.exports = {
     // read from db
     read: function(num, cb) {
         entryModel
-        .find({})
-        .sort({timestamp: -1})
-        .limit(num)
-        .exec(function(error, result) {
-            cb(error, result);
-        });
+            .find({})
+            .sort({
+                timestamp: -1
+            })
+            .limit(num)
+            .exec(function(error, result) {
+                cb(error, result);
+            });
     },
     // write in db
-    create:function(payload, cb) {
+    create: function(payload, cb) {
         var model;
         var offset = payload.timestamp.getTimezoneOffset();
 
