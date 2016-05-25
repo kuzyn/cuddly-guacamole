@@ -6,29 +6,28 @@ var router = express.Router();
 // Client routing //
 ////////////////////
 
-// get latest
+// get latest entry
 router.get('/', function(req, res) {
-  Entry.get(1).then(function(entry){
-    if (!entry) {
+  Entry.read(1, function(err, doc) {
+    if (err) {
       res.sendStatus(503);
     }
-    res.json(entry);
+    res.json(doc);
   });
 });
 
-// get n latests
+// get n latests entries
 router.get('/:limit', function(req, res) {
-  Entry.get(parseInt(req.params.limit)).then(function(entries){
-    if (!entries) {
-      res.sendStatus(400);
+  Entry.read(parseInt(req.params.limit), function(err, docs) {
+    if (err) {
+      res.sendStatus(503);
     }
-    res.json(entries);
+    res.json(docs);
   });
 });
 
 // create one
 router.post('/', function(req, res) {
-
   var payload = {
     message: req.body.message,
     category: "foo",
@@ -36,21 +35,33 @@ router.post('/', function(req, res) {
     timestamp: new Date()
   };
 
-  Entry.post(payload).then(function(entry) {
-    if (!entry) {
+  Entry.create(payload, function(err, doc) {
+    if (err) {
       res.sendStatus(503);
     }
-    res.json(entry);
+    res.json(doc);
   });
 });
 
-// delete one
+//todo: delete one
 router.delete('/:id', function(req, res) {
+  // Entry.delete(payload, function(err, doc) {
+  // if (err) {
+  //   res.sendStatus(503);
+  // }
+  // res.json(doc);
+  // }
   res.sendStatus(200);
 });
 
-// update one
+//todo: update one
 router.put('/:id', function(req, res) {
+  // Entry.update(payload, function(err, doc) {
+  // if (err) {
+  //   res.sendStatus(503);
+  // }
+  // res.json(doc);
+  // }
   res.sendStatus(200);
 });
 

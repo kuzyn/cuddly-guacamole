@@ -3,7 +3,7 @@ var db = require('../../lib/database');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-var ThisSchema = new Schema({
+var entrySchema = new Schema({
     id : ObjectId,
     user: String,
     category: String,
@@ -14,28 +14,28 @@ var ThisSchema = new Schema({
     timestamp: Date
 });
 
-var ThisModel = db.get().model('Entry', ThisSchema);
+var entryModel = db.get().model('Entry', entrySchema);
 
 module.exports = {
-    get: function(num) {
-        return ThisModel
+    // read from db
+    read: function(num, cb) {
+        entryModel
         .find({})
         .sort({timestamp: -1})
         .limit(num)
-        .exec(function(err) {
-            if (err) {
-                throw err;
-            }
+        .exec(function(error, result) {
+            cb(error, result);
         });
     },
-    post:
-    function(payload) {
+    // write in db
+    create:function(payload, cb) {
         var model;
-        var offset = payload.timestamp.getTimezoneOffset(); //todo: remember to bind to location timezone
+        var offset = payload.timestamp.getTimezoneOffset();
 
+        //todo: remember to bind to location timezone
         payload.timestamp = payload.timestamp.getTime() - offset * 60000;
-        model = new ThisModel(payload);
+        model = new entryModel(payload);
 
-        return model.save();
+        model.save(cb);
     }
 };
