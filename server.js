@@ -67,6 +67,7 @@ var admin = require('./app/admin/admin_controller'); // Admin page route
 var client = require('./app/client/client_controller'); // Client page route
 var docs = require('./app/docs/docs_controller'); // Docs page route
 var menu = require('./app/menu/menu_controller'); // Menu page route
+var player = require('./app/player/player_controller'); // Player page route
 
 //API controllers
 var entry = require('./app/entry/entry_controller');
@@ -76,6 +77,7 @@ server.use('/admin', admin); // Admin page
 server.use('/', client); // Client page
 server.use('/docs', docs); // Docs page
 server.use('/menu', menu); // Menu page
+server.use('/player', player); // Player page
 
 // Attach API routes
 server.use('/entry', entry); // Docs page
