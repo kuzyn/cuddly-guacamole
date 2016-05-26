@@ -10,7 +10,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
     debug('GET');
     res.render('docs_view', {
-        docsPage: true
+        page: "docs"
     });
 });
 

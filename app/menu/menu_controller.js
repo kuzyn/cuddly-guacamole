@@ -10,7 +10,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
     debug('GET');
     res.render('menu_view', {
-        menuPage: true
+        page: "menu"
     });
 });
 
