@@ -66,6 +66,7 @@ server.set('views', path.join(__dirname + '/app/', '_views'));
 // var admin = require('./app/admin/admin_controller'); // Admin page route
 var client = require('./app/client/client_controller'); // Client page route
 var docs = require('./app/docs/docs_controller'); // Docs page route
+var menu = require('./app/menu/menu_controller'); // Menu page route
 
 //API controllers
 var entry = require('./app/entry/entry_controller');
@@ -74,6 +75,7 @@ var entry = require('./app/entry/entry_controller');
 // server.use('/admin', admin); // Admin page
 server.use('/', client); // Client page
 server.use('/docs', docs); // Docs page
+server.use('/menu', menu); // Menu page
 
 // Attach API routes
 server.use('/entry', entry); // Docs page
