@@ -63,7 +63,7 @@ server.set('view engine', '.hbs');
 server.set('views', path.join(__dirname + '/app/', '_views'));
 
 // Page controllers
-// var admin = require('./app/admin/admin_controller'); // Admin page route
+var admin = require('./app/admin/admin_controller'); // Admin page route
 var client = require('./app/client/client_controller'); // Client page route
 var docs = require('./app/docs/docs_controller'); // Docs page route
 var menu = require('./app/menu/menu_controller'); // Menu page route
@@ -72,7 +72,7 @@ var menu = require('./app/menu/menu_controller'); // Menu page route
 var entry = require('./app/entry/entry_controller');
 
 // Attach our endpoints to our controllers
-// server.use('/admin', admin); // Admin page
+server.use('/admin', admin); // Admin page
 server.use('/', client); // Client page
 server.use('/docs', docs); // Docs page
 server.use('/menu', menu); // Menu page
