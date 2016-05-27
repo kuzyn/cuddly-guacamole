@@ -23,11 +23,41 @@ The application's **development board** can be viewed _[here](https://trello.com
 
 # API
 
-Route           | Type     | Payload             | Return | Description
---------------- | -------- | ------------------- | ------ | ---------------------------------------------
-_/entry_        | **GET**  | n/a                 | Object | Returns the most recent entry
-_/entry_        | **POST** | {message: _String_} | Object | Save an entry and returns it
-_/entry/:limit_ | **GET**  | n/a                 | Object | Returns the number of entries set in _:limit_
+## Pages
+
+Route     | Description
+--------- | ------------------------------
+_/_       | Serves the client landing page
+_/player_ | Serves the audio player page
+_/menu_   | Serves the digital menu
+_/docs_   | Serves the docs page
+_/admin_  | Serves the admin page
+
+## Operations
+
+Route          | Method   | Parameters             | Return | Description
+-------------- | -------- | ---------------------- | ------ | --------------------------------------------
+_/entry_       | **GET**  | _n/a_                  | Object | Returns the most recent entry
+_/entry_       | **POST** | message: _String_      | Object | Save an entry and returns it
+_/entry/limit_ | **GET**  | _n/a_                  | Object | Returns the number of entries set as _limit_
+_/location_    | **GET**  | _n/a_                  | Object | Returns the most recent entry
+_/location_    | **POST** | locationName: _String_ | Object | Returns the most recent entry
+
+The fastest way to test operations is to either visit the endpoints in the browser (for GET) or use `curl` (for GET/POST):<br>
+
+```
+#to only get the headers back
+curl -I http://localhost:3000/entry
+
+#for GET without the headers
+curl -i http://localhost:3000/entry
+
+#for GET with the headers
+curl http://localhost:3000/entry
+
+#for POST  
+curl -d "keyName=value" http://localhost:3000/entry
+```
 
 # Development
 
@@ -119,10 +149,10 @@ You will also notice that some git hooks are set-up to run these tasks in pre-co
 
 The branches are setup to be automatically deployed on Heroku when they are pushed to Github.
 
-*develop*
-[https://cuddly-guacamole.herokuapp.com/](https://cuddly-guacamole.herokuapp.com/)
+**develop**<br>
+<https://cuddly-guacamole.herokuapp.com/>
 
-*master*
+**master**<br>
 _t.b.c._
 
 # License
