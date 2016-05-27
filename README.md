@@ -35,15 +35,16 @@ _/admin_  | Serves the admin page
 
 ## Operations
 
-Route           | Method     | Parameters                 | Return | Description
---------------- | -------- | ----------------------- | ------ | ---------------------------------------------
-_/entry_        | **GET**  | _n/a_                     | Object | Returns the most recent entry
-_/entry_        | **POST** | message: _String_     | Object | Save an entry and returns it
-_/entry/limit_ | **GET**  | _n/a_                     | Object | Returns the number of entries set as _limit_
-_/location_     | **GET**  | _n/a_ | Object | Returns the most recent entry
-_/location_     | **POST**  | locationName: _String_ | Object | Returns the most recent entry
+Route          | Method   | Parameters             | Return | Description
+-------------- | -------- | ---------------------- | ------ | --------------------------------------------
+_/entry_       | **GET**  | _n/a_                  | Object | Returns the most recent entry
+_/entry_       | **POST** | message: _String_      | Object | Save an entry and returns it
+_/entry/limit_ | **GET**  | _n/a_                  | Object | Returns the number of entries set as _limit_
+_/location_    | **GET**  | _n/a_                  | Object | Returns the most recent entry
+_/location_    | **POST** | locationName: _String_ | Object | Returns the most recent entry
 
-The fastest way to test operations is to either visit the endpoints in the browser (for GET) or use ```curl``` (for GET/POST):<br>
+The fastest way to test operations is to either visit the endpoints in the browser (for GET) or use `curl` (for GET/POST):<br>
+
 ```
 #to only get the headers back
 curl -I http://localhost:3000/entry
