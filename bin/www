@@ -1,85 +1,96 @@
 #!/usr/bin/env node
 
-var debug = require('debug')('foodsessions:www');
 var http = require('http');
-var app = require('../app');
+var server = require('../server');
 
 // Get port from .env file
 var port = normalizePort(process.env.PORT);
-app.set('port', port);
+server.set('port', port);
 
-// Create HTTP server
-var server = http.createServer(app);
+// Create HTTP serverInstance
+var serverInstance = http.createServer(server);
 
 // Listen on provided port, on all network interfaces
-server.listen(port);
+serverInstance.listen(port);
 
-// Event handlers
-server.on('error', onError);
-server.on('listening', onListening);
+
+//////////////
+// Handlers //
+//////////////
+
+// Error and success handlers
+serverInstance.on('error', onError);
+serverInstance.on('listening', onListening);
 
 // Catch exeptions & keep our thread going
-process.on('uncaughtException', function (err) {
-  debug('Caught exception: ' + err);
+process.on('uncaughtException', function(err) {
+    process.stdout.write('Caught exception: ' + err + '\n');
 });
+
+
+/////////////
+// Helpers //
+/////////////
 
 //Normalize a port into a number, string, or false
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+    var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+    if (port >= 0) {
+        // port number
+        return port;
+    }
 
-  return false;
+    return false;
 }
 
-// Callback for our HTTP server "error" event
+// Callback for our HTTP serverInstance "error" event
 function onError(error) {
+    var bind;
 
-  if (error.syscall !== 'listen') {
-    process.stderr(error);
-    throw error;
-  }
+    // throw an error if we are not ready to listen
+    if (error.syscall !== 'listen') {
+        process.stderr(error);
+        throw error;
+    } else {
+        bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+    }
 
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-
-  // Handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-    process.stdout.write(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-    process.stdout.write(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+    // Handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            process.stdout.write(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            process.stdout.write(bind + ' is already in use');
+            process.exit(1);
+            break;
+            // case 'ELIFECYCLE':
+            // process.stdout.write('There is a problem when spawning the /bin/www script' + bind);
+            //   process.exit(1);
+            //   break;
+        default:
+            throw error;
+    }
 }
 
-// Callback for our HTTP server "listening" event
+// Callback for our HTTP serverInstance "listening" event
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  if (process.pid) {
-    process.stdout.write('\n' +
-           '######FOOD########'+ '\n' +
-           '######SESSIONS####'+ '\n' +
-           'PID: ' + process.pid + '\n' +
-           '\n'
-          );
-  }
-  if (process.env['NODE_ENV'] === 'development-gulp') {
-    debug('Listening on ' + bind + ' and proxying browser-sync on 4000');
-  } else {
-    debug('Listening on ' + bind);
-  }
+    var addr = serverInstance.address();
+    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    if (process.pid) {
+        process.stdout.write('\n' +
+            '######FOOD########' + '\n' +
+            '######SESSIONS####' + '\n' +
+            'PID: ' + process.pid + '\n' +
+            '\n'
+        );
+        process.stdout.write('Listening on ' + bind + ', press ctrl+c to exit' + '\n');
+    }
 }
